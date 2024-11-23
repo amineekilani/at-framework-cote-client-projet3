@@ -12,10 +12,15 @@ export class BookService {
     new Book(4,"Commitment: My Autobiography","Didier Drogba",15),
     new Book(5,"Mein Kampf","Adolf Hitler",19)
   ];
-  getBooks()
+  getBooks():Book[]
   {
-    return this.books;
+    return [...this.books];
   }
 
-  constructor() { }
+  constructor() {}
+  addBook(title:string,author:string,price:number)
+  {
+    const newBook=new Book(this.books[this.books.length-1].id+1,title,author,price);
+    this.books=[...this.books,newBook];
+  }
 }
