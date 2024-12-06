@@ -7,10 +7,19 @@ import { Book } from '../book';
   templateUrl: './book-list.component.html',
   styleUrl: './book-list.component.css'
 })
-export class BookListComponent {
+export class BookListComponent
+{
   books?: Book[];
-  constructor(private bookService: BookService) { }
-  ngOnInit(): void {
-    this.books = this.bookService.getBooks();
+  constructor(private bookService: BookService){}
+  deleteBook(id: number): void
+  {
+    if(confirm("Etes-vous sûr de vouloir supprimer ce livre ?"))
+      this.bookService.deleteBook(id);
+    //this.books=this.bookService.getBooks();
+  }
+  ngOnInit(): void
+  {
+    this.books=this.bookService.getBooks();
+    this.bookService.bookEdited.subscribe(newBooks=>this.books=newBooks);
   }
 }
