@@ -5,18 +5,15 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class BookService {
-  books=[
-    new Book(1,"Inverting the Pyramid","Jonathan Wilson",14),
-    new Book(2,"I Am Zlatan Ibrahimović","Zlatan Ibrahimović",12),
-    new Book(3,"I Think Therefore I Play","Andrea Pirlo",13),
-    new Book(4,"Commitment: My Autobiography","Didier Drogba",15),
-    new Book(5,"Mein Kampf","Adolf Hitler",19)
-  ];
+export class BookService
+{
+  private books=[];
+  private baseURL="http://localhost:3000/books";
   bookEdited=new Subject<Book[]>();
-  getBooks():Book[]
+  getBooks():Observable<Book[]>
   {
-    return [...this.books];
+    //return [...this.books];
+    return this.httpClient.get<Book[]>(this.baseURL)
   }
   constructor() {}
   addBook(title:string,author:string,price:number)
